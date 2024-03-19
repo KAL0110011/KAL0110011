@@ -23,10 +23,10 @@ if(isset($_POST["user"])){
     $user = $_POST["user"];
     if($_SESSION["level"] === "easy"){
         if($user === "kertas"){
-            $com = rand(1,10);
-            if($com === 6){
+            $com = rand(1,100);
+            if($com === 100 ){
                 $com = "gunting";
-            }elseif($com === 3 || $com === 8){
+            }elseif($com === 3 || $com === 8 || $com === 32){
                 $com = "kertas";
             }else{
                 $com = "batu";
@@ -65,10 +65,10 @@ if(isset($_POST["user"])){
         $hasil = suit($user,$com);
     }elseif($_SESSION["level"] === "hard"){
         if($user === "kertas"){
-            $com = rand(1,10);
-            if($com === 6){
+            $com = rand(1,100);
+            if($com === 6 || $com === 60){
                 $com = "batu";
-            }elseif($com === 3 || $com === 8){
+            }elseif($com === 3 || $com === 8 || $com === 93){
                 $com = "kertas";
             }else{
                 $com = "gunting";
@@ -125,20 +125,23 @@ if(isset($_POST["kembali"])){
         <button type="submit" name="mulai">mulai</button>
     <?php else: ?>   
         <?php if(isset($user)): ?>
-            <?= "anda memilih ". $user;?>
-            <br>
-            <?= "computer memilih ".$com;?>
-            <br>
-            <?= $hasil; ?>
+            <br><br><br><br>
+            <pre><h3>anda                     computer</h3></pre>
+            <button type="button"><img src="img/<?= $user ;?>.png" alt="kertas"></button>
+            <b>vs</b>
+            <button type="button"><img src="img/<?= $com ;?>.png" alt="kertas"></button>
+            <br><br>
+            <h2><?= $hasil; ?></h2>
             <button type="submit" name="lagi">lagi</button>
-        <?php endif ?>
-        <h1>pilih pilihan anda!</h1>
-        <br><br><br>
-            <button type="submit" name="user" value="kertas">kertas</button>
-            <button type="submit" name="user" value="gunting">gunting</button>
-            <button type="submit" name="user" value="batu">batu</button>
+        <?php else: ?>
+            <h1>pilih pilihan anda!</h1>
+            <br><br><br>
+            <button type="submit" name="user" value="kertas"><img src="img/kertas.png" alt="kertas"></button>
+            <button type="submit" name="user" value="gunting"><img src="img/gunting.png" alt="batu"></button>
+            <button type="submit" name="user" value="batu"><img src="img/batu.png" alt="batu"></button>
             <br><br><br>
             <button type="submit" name="kembali">kembali</button>
+        <?php endif ?>
     <?php endif ?>
   </center>
 </form>
