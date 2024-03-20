@@ -16,7 +16,14 @@ function suit($user,$com){
 }
 
 if(isset($_POST["mulai"])){
-    $_SESSION['level'] = $_POST["level"];
+    if(isset($_POST["level"])){
+        $_SESSION['level'] = $_POST["level"];
+    }else{
+        // echo "<script>
+        //         alert('anda harus memilih level');    
+        //       </script>";
+        $notLevel = true ;
+    }
 }
 
 if(isset($_POST["user"])){
@@ -114,22 +121,31 @@ if(isset($_POST["kembali"])){
   <center>
     <?php if(!isset($_SESSION["level"])): ?>
         <h1>Selamat datang di game suit</h1>
-        <br>
-        <h3>pilih level</h3>
-        <?php foreach($levels as $lev): ?>
-            <input type="radio" name="level" value="<?= $lev;?>" id="<?= $lev;?>">
-            <label for="<?= $lev;?>"><?= $lev;?></label>
+        <?php if(isset($notLevel)): ?>
+            <b style="color:red">anda harus memilih level terlebih dahulu</b>
+        <?php else: ?>
             <br>
+        <?php endif ?>
+        <table border="0" cellspacing="0" cellpadding="2">
+            <tr>
+                <td colspan="2"><h3>pilih level</h3></td>
+            </tr>
+        <?php foreach($levels as $lev): ?>
+            <tr>
+                <td><input type="radio" name="level" value="<?= $lev;?>" id="<?= $lev;?>"></td>
+                <td><label for="<?= $lev;?>"><?= $lev;?></label></td>
+            </tr>
         <?php endforeach ?>
+        </table>
         <br>
         <button type="submit" name="mulai">mulai</button>
     <?php else: ?>   
         <?php if(isset($user)): ?>
             <br><br><br><br>
             <pre><h3>anda                     computer</h3></pre>
-            <button type="button"><img src="img/<?= $user ;?>.png" alt="kertas"></button>
+            <button type="button"><img src="img/<?= $user ;?>.png" alt="<?= $user ;?>"></button>
             <b>vs</b>
-            <button type="button"><img src="img/<?= $com ;?>.png" alt="kertas"></button>
+            <button type="button"><img src="img/<?= $com ;?>.png" alt="<?= $com ;?>"></button>
             <br><br>
             <h2><?= $hasil; ?></h2>
             <button type="submit" name="lagi">lagi</button>
@@ -137,7 +153,7 @@ if(isset($_POST["kembali"])){
             <h1>pilih pilihan anda!</h1>
             <br><br><br>
             <button type="submit" name="user" value="kertas"><img src="img/kertas.png" alt="kertas"></button>
-            <button type="submit" name="user" value="gunting"><img src="img/gunting.png" alt="batu"></button>
+            <button type="submit" name="user" value="gunting"><img src="img/gunting.png" alt="gunting"></button>
             <button type="submit" name="user" value="batu"><img src="img/batu.png" alt="batu"></button>
             <br><br><br>
             <button type="submit" name="kembali">kembali</button>
